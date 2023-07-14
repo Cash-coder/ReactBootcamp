@@ -45,6 +45,7 @@ header p {
   gap: 1.5rem;
 }
 
+/* I want to separate more each block! */
 .concept {
   display: flex;
   flex-direction: column;
