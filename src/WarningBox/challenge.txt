@@ -1,0 +1,5 @@
+https://www.udemy.com/course/react-the-complete-guide-incl-redux/learn/quiz/5775802#questions
+
+For this task, you need some state that controls whether the warning box is visible or not. Hence, the first step is to register
+such an isDeleting state that's either true (the box will be shown) or false (it will not be shown). Of course, you could use any other
+state name of your choice:
