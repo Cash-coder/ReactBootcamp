@@ -1,54 +1,39 @@
-import keyConceptsImage from './assets/images/key-concepts.png';
-import componentsImage from './assets/images/components.png';
-import stateImage from './assets/images/state.png';
-import eventsImage from './assets/images/events.png';
-import Header from "./components/components/Header";
-import Concept from "./components/components/Concept";
+import React, {useEffect, useState} from 'react';
 
-const concepts = [
-  {
-    title: 'Components',
-    image: componentsImage,
-    description:
-      'Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. Components can receive data via props, and they can render dynamic output using JSX.',
-  },
-  {
-    title: 'State',
-    image: stateImage,
-    description:
-      'State is data that may change over time. As it changes, the UI should be updated to reflect the updated data. Each component can maintain its own state and multiple components can share state.',
-  },
-  {
-    title: 'Events',
-    image: eventsImage,
-    description:
-      'Event handlers are added via props to (built-in) components. You pass functions as values to such event handlers to control which functions gets executed for which event.',
-  },
-];
+import Login from './components/Login/Login';
+import Home from './components/Home/Home';
+import MainHeader from './components/MainHeader/MainHeader';
 
 function App() {
-  return (
-    <div>
-      <Header/>
-      <ul id="Concepts">
-        <Concept
-            image={concepts[0].image}
-            title={concepts[0].title}
-            description={concepts[0].description}
-        />
-        <Concept
-            image={concepts[1].image}
-            title={concepts[1].title}
-            description={concepts[1].description}
-        />
-        <Concept
-            image={concepts[2].image}
-            title={concepts[2].title}
-            description={concepts[2].description}
-        />
-      </ul>
-    </div>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+      const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
+      if (storedUserLoggedInInformation === '1'){
+          setIsLoggedIn(true);
+      }
+  }, []);
+
+  const loginHandler = (email, password) => {
+    // We should of course check email and password
+    // But it's just a dummy/ demo anyways
+    setIsLoggedIn(true);
+    localStorage.setItem('isLoggedIn', '1');
+  };
+
+  const logoutHandler = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('isLoggedIn',);
+  };
+
+  return (
+    <React.Fragment>
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
+      <main>
+        {!isLoggedIn && <Login onLogin={loginHandler} />}
+        {isLoggedIn && <Home onLogout={logoutHandler} />}
+      </main>
+    </React.Fragment>
   );
 }
 
